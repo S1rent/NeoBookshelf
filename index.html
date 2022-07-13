@@ -43,7 +43,8 @@
             </section>
 
             <!-- Collection -->
-            <section class="collection-section bg-banner-reversed">
+            <section class="bg-banner-reversed"></section>
+            <section class="collection-section">
                 <div class="collection">     
                     <h1 id="collection-title">Collection</h1>
                     <input id="search-bar" type="text" placeholder="Search Book">
@@ -51,9 +52,51 @@
                     <div class="collection-wrapper">
                         <div class="collection-ongoing collection-type-section">
                             <h1>Ongoing</h1>
+                            <aside>
+                                <article class="collection-item">
+                                    <div class="actions">
+                                        <div class="action-top">
+                                            <img src="./assets/ic-ongoing.png">
+                                            <img src="./assets/ic-trash.png">
+                                        </div>
+                                        <div class="action-bottom">
+                                            <img src="./assets/ic-edit.png">
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <p>2021</p>
+                                        <h4>Introduction to React Native</h4>
+                                        <div class="author-info">
+                                            <img src="assets/ic-author.png">
+                                            <h6>Philip Indra Prayitno</h6>
+                                        </div>
+                                    </div>
+                                </article>
+                            </aside>
                         </div>
                         <div class="collection-completed collection-type-section">
                             <h1>Completed</h1>
+                            <aside>
+                                <article class="collection-item">
+                                    <div class="actions">
+                                        <div class="action-top">
+                                            <img src="./assets/ic-ongoing.png">
+                                            <img src="./assets/ic-trash.png">
+                                        </div>
+                                        <div class="action-bottom">
+                                            <img src="./assets/ic-edit.png">
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <p>2021</p>
+                                        <h4>Introduction to React Native</h4>
+                                        <div class="author-info">
+                                            <img src="assets/ic-author.png">
+                                            <h6>Philip Indra Prayitno</h6>
+                                        </div>
+                                    </div>
+                                </article>
+                            </aside>
                         </div>
                     </div>
                 </div>
@@ -61,8 +104,31 @@
             <div class="bg-banner-collection"></div>
 
             <!-- Insert -->
-            <section>
-                
+            <section class="insert-section">
+                <div>
+                    <img src="./assets/ic-insert-illustration.png">
+                </div>
+                <div>
+                    <h2>Add Book to Collection</h2>
+                    <h5>Title</h5>
+                    <input id="input-title" type="text" placeholder="The Amazing Book Title">
+
+                    <h5>Author</h5>
+                    <input id="input-author" type="text" placeholder="The Amazing Author">
+
+                    <h5>Title</h5>
+                    <input id="input-title" type="text" placeholder="The Amazing Book Title">
+
+                    <h5>Year</h5>
+                    <input id="input-year" type="text" placeholder="The Year That The Amazing Book Was Written">
+
+                    <h5>Status</h5>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                        <h4>Ongoing</h4>
+                    </label>
+                </div>
             </section>
                
             </section>
