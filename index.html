@@ -105,10 +105,10 @@
 
             <!-- Insert -->
             <section class="insert-section">
-                <div>
+                <div class="insert-container">
                     <img src="./assets/ic-insert-illustration.png">
                 </div>
-                <div>
+                <div class="insert-container">
                     <h2>Add Book to Collection</h2>
                     <h5>Title</h5>
                     <input id="input-title" type="text" placeholder="The Amazing Book Title">
@@ -116,25 +116,33 @@
                     <h5>Author</h5>
                     <input id="input-author" type="text" placeholder="The Amazing Author">
 
-                    <h5>Title</h5>
-                    <input id="input-title" type="text" placeholder="The Amazing Book Title">
-
                     <h5>Year</h5>
                     <input id="input-year" type="text" placeholder="The Year That The Amazing Book Was Written">
 
                     <h5>Status</h5>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                        <h4>Ongoing</h4>
-                    </label>
+                    <div class="checkbox-wrapper">
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                        
+                        <h4 id="label-status">Ongoing</h4>
+                    </div>
+                    
+                    <div class="button-add-wrapper">
+                        <button id="button-add">Add</button>
+                    </div>
                 </div>
             </section>
-               
+
+            <section class="disclaimer-section">
+                <h3>*Disclaimer</h3>
+                <h4>All of the resource belongs to their respective owners.</h4>
             </section>
         </main>
 
         <footer>
+            <section class="bg-banner-reversed"></section>
             <h3>Neo Bookshelf by Philip Indra Prayitno © 2022</h3>
         </footer>
     </body>

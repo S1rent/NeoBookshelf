@@ -12,6 +12,8 @@
     --orangeFFB87D: #FFB87D;
     --grayF9FCFE:#F9FCFE;
     --gray656565: #656565;
+    --yellowFFD233: #FFD233;
+    --green0FA958: #0FA958;
 }
 
 html, body, main {
@@ -428,84 +430,204 @@ header nav ul a:hover {
 
 .insert-section {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 5%;
+    flex-wrap: wrap;
+}
+
+.insert-container {
+    width: 50%;
+}
+
+.insert-container h2 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 64px;
+}
+
+.insert-container h5 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+
+    color: #000000;
+
+    mix-blend-mode: normal;
+}
+
+.insert-container input {
+    background: var(--whiteFFFFFF);
+    border: 4px solid var(--grayF8F8F8);
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    transition: 0.3s;
+    height: 72px;
+    border-radius: 8px;
+    width: 100%;
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 24px;
+    letter-spacing: 0.05em;
+    padding: 16px;
+    align-items: center;
+    justify-content: center;
+}
+
+.insert-container input::placeholder {
+    color: #9F9F9F;
+    align-items: center;
+    justify-content: center;
+}
+
+.insert-container input:hover {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.insert-container input:focus {
+    outline: 0;
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
 }
 
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
+    width: 86px;
+    height: 46px;
+}
+
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
-  }
+}
   
-  /* The slider */
-  .slider {
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #FFD233;
+    background-color: var(--yellowFFD233);
     -webkit-transition: .4s;
     transition: .4s;
-  }
+}
   
-  .slider:before {
+.slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
+    height: 34px;
+    width: 34px;
+    left: 6px;
+    bottom: 6px;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
-  }
+}
   
-  input:checked + .slider {
-    background-color: #0FA958;
-  }
+input:checked + .slider {
+    background-color: var(--green0FA958);
+}
   
-  input:focus + .slider {
-    box-shadow: 0 0 1px #0FA958;
-  }
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--green0FA958);
+}
   
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
+input:checked + .slider:before {
+    -webkit-transform: translateX(34px);
+    -ms-transform: translateX(34px);
+    transform: translateX(34px);
+}
   
-  /* Rounded sliders */
-  .slider.round {
+.slider.round {
     border-radius: 34px;
-  }
+}
   
-  .slider.round:before {
+.slider.round:before {
     border-radius: 50%;
-  }
+}
+
+.checkbox-wrapper h4 {
+    margin-left: 16px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: 0.05em;
+}
+
+#label-status { 
+    color: var(--yellowFFD233);
+}
+
+#button-add {
+    padding: 10px 50px;
+    border-radius: 15px;
+    height: 64px;
+    border: none;
+    font-weight: 800;
+    font-size: x-large;
+    background: linear-gradient(90deg, #FF3D99 3.03%, #FFB87D 86.57%);
+    color: white;
+    cursor: pointer;
+    transition: 0.4s;
+    background-size: 200%;
+}
+
+#button-add:hover {
+    background-position: right;
+}
+
+.button-add-wrapper {
+    display: flex;
+    justify-content: end;
+}
 
 /* Insert */
 
-/* Footer */
-footer h3 {
+/* Disclaimer */
+
+.disclaimer-section { 
+    text-align: center;
+}
+
+.disclaimer-section h3 {
     font-style: normal;
     font-weight: 700;
     font-size: 28px;
+    line-height: 48px;
+    letter-spacing: 0.05em;
+}
+
+.disclaimer-section h4 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 48px;
+    letter-spacing: 0.05em;
+}
+
+/* Disclaimer */
+
+/* Footer */
+footer h3 {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
     line-height: 52px;
     text-align: center;
     padding: 0;
     margin: 0;
     letter-spacing: 0.15em;
-    background: linear-gradient(90deg, rgba(255, 61, 153, 0.9025) -52.03%, rgba(255, 184, 125, 0.95) 131.76%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    background: var(--grayF9FCFE);
 }
