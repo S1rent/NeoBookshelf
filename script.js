@@ -1,115 +1,231 @@
-$(document).ready(function() {
-    let activeIndex = 0
-    let dataSource = [
-        {
-            isSale: true,
-            imageSource: './assets/bs-2.jpg',
-            category: 'Sneakers',
-            name: 'Nike Air Force 1 Triple White',
-            actualPrice: 'Rp. 1.000.000',
-            discountPrice: 'Rp. 800.000',
-            totalSold: '2.079',
-            rating: '4.9'
-        },
-        {
-            isSale: true,
-            imageSource: './assets/bs-1.jpg',
-            category: 'Sneakers',
-            name: 'Adidas Ultraboost 1.0 Cookies & Cream',
-            actualPrice: 'Rp. 2.000.000',
-            discountPrice: 'Rp. 1.550.000',
-            totalSold: '1.548',
-            rating: '4.9'
-        },
-        {
-            isSale: true,
-            imageSource: './assets/bs-4.jpg',
-            category: 'Men’s & Women’s',
-            name: 'Essentials Fear of GOD Hoodie',
-            actualPrice: 'Rp. 1.200.000',
-            discountPrice: 'Rp. 950.000',
-            totalSold: '1.131',
-            rating: '4.8'
-        },
-        {
-            isSale: false,
-            imageSource: './assets/bs-3.jpg',
-            category: 'Fragrance',
-            name: 'Dior Sauvage Elixir',
-            actualPrice: 'Rp. 3.000.000',
-            discountPrice: 'Rp. 3.000.000',
-            totalSold: '574',
-            rating: '4.9'
-        }
-    ]
+const completedBookListKey = 'LOCAL_COMPLETED_BOOK_LIST'
+const ongoingBookListKey = 'LOCAL_ONGOING_BOOK_LIST'
 
-    const initCarousel = () => {
-        let i
-        let carouselItems = document.getElementsByClassName("carousel-item")
-        let indicators = document.getElementsByClassName("indicator")
+const deleteData = (id) => {
+    let ongoingBooks = JSON.parse(localStorage.getItem(ongoingBookListKey))
+    let completedBooks = JSON.parse(localStorage.getItem(completedBookListKey))
+    let isOngoing = null
 
-        for (i = 0; i < carouselItems.length; i++) {
-            carouselItems[i].style.display = "none"
-        }
+    ongoingBooks.forEach(data => {
+        if(data.id == id)
+            isOngoing = true
+    })
 
-        activeIndex++
-        if (activeIndex > carouselItems.length)
-            activeIndex = 1  
+    completedBooks.forEach(data => {
+        if(data.id == id)
+            isOngoing = false
+    })
 
-        for (i = 0; i < indicators.length; i++)
-            indicators[i].className = indicators[i].className.replace(" active", "")
-        
-        carouselItems[activeIndex - 1].style.display = "block"
-        indicators[activeIndex - 1].className += " active"
-        setTimeout(initCarousel, 4000) 
-    }
-
-    const initData = () => {
-        let container = document.getElementsByClassName('sellers')[0]
-        dataSource.forEach(item => {
-            let htmlStructure = `
-                <article>
-                    ${ 
-                        item.isSale ? 
-                        `
-                            <div class="sale-tag">
-                            <h2>Sale</h2>
-                            </div>
-                        ` 
-                        : 
-                        '' 
-                    }
-                    <img src="${ item.imageSource }">
-                    <div class="content">
-                        <h4>${ item.category }</h4>
-                        <h6>${ item.name }</h6>
-                        ${
-                            item.isSale ?
-                            `
-                                <span>
-                                    <h5 class="actual-price">${ item.actualPrice }</h5>
-                                    <h5 class="discount-price">${ item.discountPrice }</h5>
-                                </span>
-                            `
-                            :
-                            `
-                                <span>
-                                    <h5 class="discount-price fc-black" style="margin-left: 0">${ item.actualPrice }</h5>
-                                </span>
-                            `
-                        }
-                    
-                        <div class="ratensold">
-                            <img src="assets/ic-star-filll.png">
-                            <p>${ item.rating } | ${ item.totalSold } Pc(s) sold</p>
-                        </div>
-                    </div>
-                </article>
-            `
-            container.innerHTML += htmlStructure
+    if(isOngoing == null)
+        return
+    else if(isOngoing) {
+        ongoingBooks = ongoingBooks.filter((data) => {
+            return data.id != id
         })
+
+        localStorage.setItem(ongoingBookListKey, JSON.stringify(ongoingBooks))
+    } else {
+        completedBooks = completedBooks.filter((data) => {
+            return data.id != id
+        })
+
+        localStorage.setItem(completedBookListKey, JSON.stringify(completedBooks))
     }
 
-    initCarousel()
-    initData()
+    loadData()
+}
+
+const moveData = (id) => {
+    let ongoingBooks = JSON.parse(localStorage.getItem(ongoingBookListKey))
+    let completedBooks = JSON.parse(localStorage.getItem(completedBookListKey))
+    let isOngoing = null
+
+    ongoingBooks.forEach(data => {
+        if(data.id == id)
+            isOngoing = true
+    })
+
+    completedBooks.forEach(data => {
+        if(data.id == id)
+            isOngoing = false
+    })
+
+    console.log(isOngoing)
+
+    if(isOngoing == null)
+        return
+    else if(isOngoing) {
+        const movedData = ongoingBooks.filter((data) => {
+            return data.id == id
+        })
+        completedBooks.push(movedData[0])
+
+        localStorage.setItem(completedBookListKey, JSON.stringify(completedBooks))
+        localStorage.setItem(ongoingBookListKey, JSON.stringify(ongoingBooks.filter((data) => {
+            return data.id != id
+        })))
+    } else {
+        const movedData = completedBooks.filter((data) => {
+            return data.id == id
+        })
+        ongoingBooks.push(movedData[0])
+        
+
+        localStorage.setItem(completedBookListKey, JSON.stringify(completedBooks.filter((data) => {
+            return data.id != id
+        })))
+        localStorage.setItem(ongoingBookListKey, JSON.stringify(ongoingBooks))
+    }
+
+    loadData()
+}
+
+const loadData = () => {
+    const ongoingList = document.getElementById('ongoing-list')
+    const completedList = document.getElementById('completed-list')
+
+    const ongoingBooks = JSON.parse(localStorage.getItem(ongoingBookListKey))
+    const completedBooks = JSON.parse(localStorage.getItem(completedBookListKey))
+
+    ongoingList.innerHTML = ``
+    completedList.innerHTML = ``
+    ongoingBooks.forEach((data) => {
+        ongoingList.innerHTML += 
+        `
+            <article class="collection-item">
+                <div class="actions">
+                    <div class="action-top">
+                        <img src="./assets/ic-ongoing.png" onclick="moveData(${data.id})">
+                        <img src="./assets/ic-trash.png" onclick="deleteData(${data.id})">
+                    </div>
+                    <div class="action-bottom">
+                        <img src="./assets/ic-edit.png">
+                    </div>
+                </div>
+                <div class="info">
+                    <p>${data.year}</p>
+                    <h4>${data.title}</h4>
+                    <div class="author-info">
+                        <img src="assets/ic-author.png">
+                        <h6>${data.author}</h6>
+                    </div>
+                </div>
+            </article>
+        `
+    })
+
+    completedBooks.forEach((data) => {
+        completedList.innerHTML += 
+        `
+            <article class="collection-item">
+                <div class="actions">
+                    <div class="action-top">
+                        <img src="./assets/ic-done.png" onclick="moveData(${data.id})">
+                        <img src="./assets/ic-trash.png" onclick="deleteData(${data.id})">
+                    </div>
+                    <div class="action-bottom">
+                        <img src="./assets/ic-edit.png">
+                    </div>
+                </div>
+                <div class="info">
+                    <p>${data.year}</p>
+                    <h4>${data.title}</h4>
+                    <div class="author-info">
+                        <img src="assets/ic-author.png">
+                        <h6>${data.author}</h6>
+                    </div>
+                </div>
+            </article>
+        `
+    })
+}
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+    const inputCheckBox = document.getElementById('checkbox-status')
+    const inputTitle = document.getElementById('input-title')
+    const inputAuthor = document.getElementById('input-author')
+    const inputYear = document.getElementById('input-year')
+    const buttonAdd = document.getElementById('button-add')
+    const labelStatus = document.getElementById('label-status')
+
+    inputCheckBox.addEventListener("change", () => {
+        if(inputCheckBox.checked) {
+            labelStatus.innerHTML = "Completed"
+            labelStatus.style.color = "#0FA958"
+        } else {
+            labelStatus.innerHTML = "Ongoing"
+            labelStatus.style.color = "#FFD233"
+        }
+    })
+
+    buttonAdd.addEventListener("click", () => {
+        // Insert Book
+        const isCompleted = inputCheckBox.checked
+        const title = inputTitle.value
+        const author = inputAuthor.value
+        const year = inputYear.value
+
+        if(title.trim() === "")
+            alert('Title cannot be empty.')
+        else if(author.trim() === "")
+            alert('Author cannot be empty.')
+        else if(year.trim() === "")
+            alert('Year cannot be empty')
+        else if(isNaN(year.trim()))
+            alert('Year must be a number')
+
+        if(title.trim() === "" || author.trim() === "" || year.trim() === "" || isNaN(year.trim()))
+            return
+    
+        const data = {
+            id: new Date().getTime(),
+            isCompleted: isCompleted,
+            title: title,
+            author: author,
+            year: year
+        }
+    
+        const ongoingBooks = JSON.parse(localStorage.getItem(ongoingBookListKey))
+        const completedBooks = JSON.parse(localStorage.getItem(completedBookListKey))
+
+        isCompleted ? completedBooks.push(data) : ongoingBooks.push(data)
+    
+        localStorage.setItem(ongoingBookListKey, JSON.stringify(ongoingBooks))
+        localStorage.setItem(completedBookListKey, JSON.stringify(completedBooks))
+
+        inputTitle.value = ''
+        inputAuthor.value = ''
+        inputYear.value = ''
+
+        loadData()
+    })
+
+    if (typeof (Storage) !== 'undefined') {
+        if (localStorage.getItem(completedBookListKey) === null) {
+            const data = {
+                id: new Date().getTime(),
+                isCompleted: true,
+                title: "How to make nasi goreng",
+                author: "Philip Indra prayitno",
+                year: "2022"
+            }
+            localStorage.setItem(completedBookListKey, JSON.stringify([data]))
+        }
+            
+
+        if (localStorage.getItem(ongoingBookListKey) === null) {
+            const data = {
+                id: new Date().getTime() + 10,
+                isCompleted: false,
+                title: "How to break someone's heart",
+                author: "Aignich Dreso",
+                year: "2022"
+            }
+            localStorage.setItem(ongoingBookListKey, JSON.stringify([data]))
+        }
+    } else {
+        alert('Your Browser doesn\'t support Web Storage.')
+    }
+
+    loadData()
 })
