@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" href="style.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script src="./script.js"></script>
 
         <title>Neo Bookshelf</title>
@@ -18,9 +17,9 @@
                 <a href="index.html"><h3 class="fc-black">Neo</h3></a>
                 <nav id="navbar-section">
                     <ul>
-                        <li><a href="index.html">Insert</a></li>
-                        <li><a href="index.html#categories-section">Search</a></li>
-                        <li><a href="aboutus.html">View Collection</a></li>
+                        <li><a href="index.html#section-insert">Insert</a></li>
+                        <li><a href="index.html#section-collection">Search</a></li>
+                        <li><a href="index.html#section-collection">View Collection</a></li>
                     </ul>
                 </nav>
             </div>
@@ -43,7 +42,7 @@
 
             <!-- Collection -->
             <section class="bg-banner-reversed"></section>
-            <section class="collection-section">
+            <section id ="section-collection" class="collection-section">
                 <div class="collection">     
                     <h1 id="collection-title">Collection</h1>
                     <input id="search-bar" type="text" placeholder="Search Book">
@@ -63,7 +62,7 @@
             <div class="bg-banner-collection"></div>
 
             <!-- Insert -->
-            <section class="insert-section">
+            <section id="section-insert" class="insert-section">
                 <div class="insert-container">
                     <img src="./assets/ic-insert-illustration.png">
                 </div>
