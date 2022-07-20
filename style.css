@@ -109,10 +109,6 @@ header h3 {
     -webkit-text-fill-color: transparent;
 }
 
-header nav {
-
-}
-
 header nav ul {
     padding: 8px;
     margin: 0;
@@ -139,8 +135,6 @@ header nav ul a:hover {
 }
 
 /* Banner */
-.banner-section {
-}
 
 .bg-banner {
     background-image: url("assets/bg-banner.png");

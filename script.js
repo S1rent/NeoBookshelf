@@ -80,12 +80,22 @@ const moveData = (id) => {
     loadData()
 }
 
-const loadData = () => {
+const loadData = (keyword = "") => {
     const ongoingList = document.getElementById('ongoing-list')
     const completedList = document.getElementById('completed-list')
 
-    const ongoingBooks = JSON.parse(localStorage.getItem(ongoingBookListKey))
-    const completedBooks = JSON.parse(localStorage.getItem(completedBookListKey))
+    let ongoingBooks = JSON.parse(localStorage.getItem(ongoingBookListKey))
+    let completedBooks = JSON.parse(localStorage.getItem(completedBookListKey))
+
+    if(keyword != "") {
+        ongoingBooks = ongoingBooks.filter(x => {
+            return x.title.includes(keyword)
+        })
+
+        completedBooks = completedBooks.filter(x => {
+            return x.title.includes(keyword)
+        })
+    }
 
     ongoingList.innerHTML = ``
     completedList.innerHTML = ``
@@ -145,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const inputTitle = document.getElementById('input-title')
     const inputAuthor = document.getElementById('input-author')
     const inputYear = document.getElementById('input-year')
+    const inputSearchBar = document.getElementById('search-bar')
     const buttonAdd = document.getElementById('button-add')
     const labelStatus = document.getElementById('label-status')
 
@@ -156,6 +167,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
             labelStatus.innerHTML = "Ongoing"
             labelStatus.style.color = "#FFD233"
         }
+    })
+
+    inputSearchBar.addEventListener("input", () => { 
+        const keyword = inputSearchBar.value.trim()
+        if (keyword == "")
+            loadData()
+        else
+            loadData(keyword)
     })
 
     buttonAdd.addEventListener("click", () => {
