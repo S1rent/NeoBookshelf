@@ -377,14 +377,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
             
 
         if (localStorage.getItem(ongoingBookListKey) === null) {
-            const data = {
+            const data1 = {
                 id: new Date().getTime() + 10,
                 isCompleted: false,
                 title: "How to break someone's heart",
                 author: "Aignich Dreso",
                 year: "2022"
             }
-            localStorage.setItem(ongoingBookListKey, JSON.stringify([data]))
+            const data2 = {
+                id: new Date().getTime() + 20,
+                isCompleted: false,
+                title: "React Programming",
+                author: "Philip Indra Prayitno",
+                year: "2022"
+            }
+            localStorage.setItem(ongoingBookListKey, JSON.stringify([data1, data2]))
         }
     } else {
         alert('Your Browser doesn\'t support Web Storage.')
