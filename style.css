@@ -388,6 +388,10 @@ header nav ul a:hover {
 .info {
     background-image: url("assets/batik-pattern.png");
     padding: 16px;
+    min-height: 196px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .info p {

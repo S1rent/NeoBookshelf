@@ -184,8 +184,10 @@ const loadData = (keyword = "") => {
                     </div>
                 </div>
                 <div class="info">
-                    <p>${data.year}</p>
-                    <h4>${data.title}</h4>
+                    <div>
+                        <p>${data.year}</p>
+                        <h4>${data.title}</h4>
+                    </div>
                     <div class="author-info">
                         <img src="assets/ic-author.png">
                         <h6>${data.author}</h6>
@@ -209,8 +211,10 @@ const loadData = (keyword = "") => {
                     </div>
                 </div>
                 <div class="info">
-                    <p>${data.year}</p>
-                    <h4>${data.title}</h4>
+                    <div>
+                        <p>${data.year}</p>
+                        <h4>${data.title}</h4>
+                    </div>
                     <div class="author-info">
                         <img src="assets/ic-author.png">
                         <h6>${data.author}</h6>
