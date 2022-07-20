@@ -1,5 +1,76 @@
 const completedBookListKey = 'LOCAL_COMPLETED_BOOK_LIST'
 const ongoingBookListKey = 'LOCAL_ONGOING_BOOK_LIST'
+let currentEditedId = null
+
+const hidePopup = () => {
+    const popupEdit = document.getElementById('edit-modal')
+    const sectionEdit = document.getElementById('section-edit')
+
+    popupEdit.style.visibility = 'hidden'
+    popupEdit.style.opacity = 0
+    sectionEdit.style.visibility = 'hidden'
+    sectionEdit.style.opacity = 0
+    currentEditedId = null
+}
+
+const toggleEditPopup = (id) => {
+    currentEditedId = id
+    let ongoingBooks = JSON.parse(localStorage.getItem(ongoingBookListKey))
+    let completedBooks = JSON.parse(localStorage.getItem(completedBookListKey))
+    let targetData = null
+
+    ongoingBooks.forEach(data => {
+        if(data.id == id) {
+            targetData = data
+        }  
+    })
+
+    completedBooks.forEach(data => {
+        if(data.id == id) {
+            targetData = data
+        }
+    })
+    if(targetData == null) {
+        hidePopup()
+        return
+    }
+        
+    const inputCheckBox = document.getElementById('checkbox-status-edit')
+    const inputTitle = document.getElementById('input-title-edit')
+    const inputAuthor = document.getElementById('input-author-edit')
+    const inputYear = document.getElementById('input-year-edit')
+    const labelStatus = document.getElementById('label-status-edit')
+
+    inputCheckBox.checked = targetData.isCompleted
+    inputTitle.value = targetData.title
+    inputAuthor.value = targetData.author
+    inputYear.value = targetData.year
+
+    if(targetData.isCompleted) {
+        labelStatus.innerHTML = "Completed"
+        labelStatus.style.color = "#0FA958"
+    } else {
+        labelStatus.innerHTML = "Ongoing"
+        labelStatus.style.color = "#FFD233"
+    }
+
+    const editPopup = document.getElementById('edit-modal')
+    const sectionEdit = document.getElementById('section-edit')
+    editPopup.style.visibility = 'visible'
+    editPopup.style.opacity = 1
+    sectionEdit.style.visibility = 'visible'
+    sectionEdit.style.opacity = 1
+
+    inputCheckBox.addEventListener("change", () => {
+        if(inputCheckBox.checked) {
+            labelStatus.innerHTML = "Completed"
+            labelStatus.style.color = "#0FA958"
+        } else {
+            labelStatus.innerHTML = "Ongoing"
+            labelStatus.style.color = "#FFD233"
+        }
+    })
+}
 
 const deleteData = (id) => {
     let ongoingBooks = JSON.parse(localStorage.getItem(ongoingBookListKey))
@@ -50,14 +121,13 @@ const moveData = (id) => {
             isOngoing = false
     })
 
-    console.log(isOngoing)
-
     if(isOngoing == null)
         return
     else if(isOngoing) {
-        const movedData = ongoingBooks.filter((data) => {
+        let movedData = ongoingBooks.filter((data) => {
             return data.id == id
         })
+        movedData[0].isCompleted = true
         completedBooks.push(movedData[0])
 
         localStorage.setItem(completedBookListKey, JSON.stringify(completedBooks))
@@ -65,9 +135,10 @@ const moveData = (id) => {
             return data.id != id
         })))
     } else {
-        const movedData = completedBooks.filter((data) => {
+        let movedData = completedBooks.filter((data) => {
             return data.id == id
         })
+        movedData[0].isCompleted = false
         ongoingBooks.push(movedData[0])
         
 
@@ -109,7 +180,7 @@ const loadData = (keyword = "") => {
                         <img src="./assets/ic-trash.png" onclick="deleteData(${data.id})">
                     </div>
                     <div class="action-bottom">
-                        <img src="./assets/ic-edit.png">
+                        <img src="./assets/ic-edit.png" onclick="toggleEditPopup(${data.id})">
                     </div>
                 </div>
                 <div class="info">
@@ -134,7 +205,7 @@ const loadData = (keyword = "") => {
                         <img src="./assets/ic-trash.png" onclick="deleteData(${data.id})">
                     </div>
                     <div class="action-bottom">
-                        <img src="./assets/ic-edit.png">
+                        <img src="./assets/ic-edit.png" onclick="toggleEditPopup(${data.id})">
                     </div>
                 </div>
                 <div class="info">
@@ -157,7 +228,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const inputYear = document.getElementById('input-year')
     const inputSearchBar = document.getElementById('search-bar')
     const buttonAdd = document.getElementById('button-add')
+    const buttonCancel = document.getElementById('button-cancel')
+    const buttonEdit = document.getElementById('button-edit')
     const labelStatus = document.getElementById('label-status')
+    const popupEdit = document.getElementById('edit-modal')
+    const inputCheckBoxEdit = document.getElementById('checkbox-status-edit')
+    const inputTitleEdit = document.getElementById('input-title-edit')
+    const inputAuthorEdit = document.getElementById('input-author-edit')
+    const inputYearEdit = document.getElementById('input-year-edit')
+
+    popupEdit.addEventListener("click", () => {
+        hidePopup()
+    })
+
+    buttonCancel.addEventListener("click", () => {
+        hidePopup()
+    })
 
     inputCheckBox.addEventListener("change", () => {
         if(inputCheckBox.checked) {
@@ -216,6 +302,60 @@ document.addEventListener("DOMContentLoaded", function(event) {
         inputAuthor.value = ''
         inputYear.value = ''
 
+        loadData()
+    })
+
+    buttonEdit.addEventListener("click", () => {
+        // Edit Book
+        const isCompleted = inputCheckBoxEdit.checked
+        const title = inputTitleEdit.value
+        const author = inputAuthorEdit.value
+        const year = inputYearEdit.value
+
+        if(title.trim() === "")
+            alert('Title cannot be empty.')
+        else if(author.trim() === "")
+            alert('Author cannot be empty.')
+        else if(year.trim() === "")
+            alert('Year cannot be empty')
+        else if(isNaN(year.trim()))
+            alert('Year must be a number')
+
+        if(title.trim() === "" || author.trim() === "" || year.trim() === "" || isNaN(year.trim()))
+            return
+
+        let ongoingBooks = JSON.parse(localStorage.getItem(ongoingBookListKey))
+        let completedBooks = JSON.parse(localStorage.getItem(completedBookListKey))
+        let targetData = null
+    
+        ongoingBooks.forEach(data => {
+            if(data.id == currentEditedId) {
+                targetData = data
+            }  
+        })
+    
+        completedBooks.forEach(data => {
+            if(data.id == currentEditedId) {
+                targetData = data
+            }
+        })
+        if(targetData == null) {
+            hidePopup()
+            return
+        }
+
+        targetData.title = title
+        targetData.author = author
+        targetData.year = year
+    
+        localStorage.setItem(ongoingBookListKey, JSON.stringify(ongoingBooks))
+        localStorage.setItem(completedBookListKey, JSON.stringify(completedBooks))
+
+        if(targetData.isCompleted != isCompleted) {
+            moveData(currentEditedId)
+        }
+
+        hidePopup()
         loadData()
     })
 

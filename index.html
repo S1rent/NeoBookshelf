@@ -99,6 +99,42 @@
                 <h3>*Disclaimer</h3>
                 <h4>All of the resource belongs to their respective owners.</h4>
             </section>
+
+            <div id="edit-modal"></div>
+            <section id="section-edit" class="edit-section">
+                <div class="insert-container">
+                    <img id="edit-ilustration" src="./assets/ic-insert-illustration.png">
+                </div>
+                <div id="edit-container-wrapper" class="insert-container">
+                    <h2>Edit Book</h2>
+                    <label for="input-title-edit"><h5>Title</h5></label>
+                    <input id="input-title-edit" type="text" placeholder="The Amazing Book Title" name="input-title">
+
+                    <label for="input-author-edit"><h5>Author</h5></label>
+                    <input id="input-author-edit" type="text" placeholder="The Amazing Author">
+
+                    <label for="input-year-edit"><h5>Year</h5></label>
+                    <input id="input-year-edit" type="text" placeholder="The Year That The Amazing Book Was Written">
+
+                    <label class="switch" for="checkbox-status-edit">
+                        <h5>Status</h5>
+                    </label>
+                    <div class="checkbox-wrapper">
+                        <label class="switch" for="checkbox-status-edit">
+                            <input type="checkbox" id="checkbox-status-edit">
+                            <span class="slider round"></span>
+                        </label>
+                        
+                        <h4 id="label-status-edit" name="label-status-edit">Ongoing</h4>
+                    </div>
+                    
+                    <div class="button-add-wrapper">
+                        
+                        <button id="button-cancel">Cancel</button>
+                        <button id="button-edit">Edit</button>
+                    </div>
+                </div>
+            </section>
         </main>
 
         <footer>

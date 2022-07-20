@@ -365,6 +365,15 @@ header nav ul a:hover {
     transform: scale(1.2);
 }
 
+.action-bottom img {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.action-bottom img:hover {
+    transform: scale(1.2);
+}
+
 .actions .action-bottom {
     display: flex;
     justify-content: end;
@@ -598,6 +607,84 @@ input:checked + .slider:before {
 }
 
 /* Insert */
+
+/* Edit */
+#edit-modal {  
+    visibility: hidden;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    top: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.1s linear;
+}
+
+#section-edit {
+    background-color: white;
+    margin: 32px 10%;
+    border-radius: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.1s linear;
+}
+
+#edit-ilustration {
+    width: 100%;
+}
+
+#edit-container-wrapper h2 {
+    margin: 0;
+}
+
+#button-edit {
+    margin-top: 16px;
+    padding: 10px 50px;
+    border-radius: 15px;
+    height: 48px;
+    border: none;
+    font-weight: 600;
+    font-size: large;
+    background: linear-gradient(90deg, #FF3D99 3.03%, #FFB87D 86.57%);
+    color: white;
+    cursor: pointer;
+    transition: 0.4s;
+    background-size: 200%;
+}
+
+#button-edit:hover {
+    background-position: right;
+}
+
+#button-cancel {
+    margin-top: 16px;
+    padding: 10px 50px;
+    border-radius: 15px;
+    height: 48px;
+    border: none;
+    font-weight: 600;
+    font-size: large;
+    background: linear-gradient(90deg, #000000 0.03%, #FF3D99 86.57%);
+    color: white;
+    cursor: pointer;
+    transition: 0.4s;
+    background-size: 200%;
+    margin-right: 32px;
+}
+
+#button-cancel:hover {
+    background-position: right;
+}
+/* Edit */
 
 /* Disclaimer */
 
